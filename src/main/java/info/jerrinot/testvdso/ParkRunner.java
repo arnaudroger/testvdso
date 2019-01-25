@@ -1,7 +1,8 @@
 package info.jerrinot.testvdso;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
+
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public final class ParkRunner implements Runnable {
     private static final int PARK_NANOS = 10000;
@@ -19,10 +20,10 @@ public final class ParkRunner implements Runnable {
             LockSupport.parkNanos(PARK_NANOS);
         }
         long durationNanos = System.nanoTime() - startNanos;
-        long durationMillis = TimeUnit.NANOSECONDS.toMillis(durationNanos);
+        long durationMillis = NANOSECONDS.toMillis(durationNanos);
         System.out.println(iterationCount + " iterations in " + durationMillis + " ms.");
 
-        long microsPerIteration = TimeUnit.NANOSECONDS.toMicros(durationNanos) / iterationCount;
+        long microsPerIteration = NANOSECONDS.toMicros(durationNanos) / iterationCount;
         System.out.println("This means each iteration took " + microsPerIteration + " microseconds");
     }
 }
