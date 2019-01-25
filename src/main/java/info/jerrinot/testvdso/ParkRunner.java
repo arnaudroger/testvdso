@@ -5,7 +5,7 @@ import java.util.concurrent.locks.LockSupport;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public final class ParkRunner implements Runnable {
-    private static final int PARK_NANOS = 10000;
+    private static final int PARK_NANOS = 2000;
 
     private final long iterationCount;
 
