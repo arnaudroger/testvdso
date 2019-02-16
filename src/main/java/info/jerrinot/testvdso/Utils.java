@@ -1,5 +1,10 @@
 package info.jerrinot.testvdso;
 
+import com.sun.media.sound.MidiOutDeviceProvider;
+
+import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.spi.MidiDeviceProvider;
 import java.util.concurrent.TimeUnit;
 
 public final class Utils {
@@ -20,5 +25,19 @@ public final class Utils {
         });
         t.setDaemon(true);
         t.start();
+    }
+
+    public static void windowsTimerHack_midi() {
+        MidiOutDeviceProvider provider = new MidiOutDeviceProvider();
+        MidiDevice.Info[] deviceInfo = provider.getDeviceInfo();
+        if (deviceInfo.length == 0) {
+            // no midi, no hack
+            return;
+        }
+        try {
+            provider.getDevice(deviceInfo[0]).open();
+        } catch (MidiUnavailableException e) {
+            // ignored, hack is not applied
+        }
     }
 }
