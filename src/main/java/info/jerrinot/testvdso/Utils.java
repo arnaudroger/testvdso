@@ -9,4 +9,16 @@ public final class Utils {
         System.out.println("Iterations: " + iteration + " this means each iteration took " + microsPerIteration
                 + " microseconds");
     }
+
+    public static void windowsTimerHack() {
+        Thread t = new Thread(() -> {
+            try {
+                Thread.sleep(Long.MAX_VALUE);
+            } catch (InterruptedException e) {
+                // a delicious interrupt, omm, omm
+            }
+        });
+        t.setDaemon(true);
+        t.start();
+    }
 }
