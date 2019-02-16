@@ -15,6 +15,7 @@ public final class ParkRunner implements Runnable {
 
     @Override
     public void run() {
+        Utils.windowsTimerHack();
         long startNanos = System.nanoTime();
         for (long i = 0; i < iterations; i++) {
             LockSupport.parkNanos(PARK_NANOS);
